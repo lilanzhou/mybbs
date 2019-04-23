@@ -1,0 +1,51 @@
+article表
+CREATE TABLE `article` (
+	`id` INT(11) NOT NULL AUTO_INCREMENT,
+	`rootid` INT(11) NULL DEFAULT NULL,
+	`title` VARCHAR(255) NULL DEFAULT NULL,
+	`content` LONGTEXT NULL,
+	`userid` INT(11) NULL DEFAULT NULL,
+	`datatime` DATE NULL DEFAULT NULL,
+	PRIMARY KEY (`id`),
+	INDEX `FKdrd322irrkdud34jl1skwxh7x` (`userid`),
+	CONSTRAINT `FKdrd322irrkdud34jl1skwxh7x` FOREIGN KEY (`userid`) REFERENCES `bbsuser` (`userid`),
+	CONSTRAINT `b_a_fk` FOREIGN KEY (`userid`) REFERENCES `bbsuser` (`userid`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=66
+;
+
+用户表
+CREATE TABLE `bbsuser` (
+	`userid` INT(11) NOT NULL AUTO_INCREMENT,
+	`username` VARCHAR(20) NULL DEFAULT NULL,
+	`password` VARCHAR(20) NULL DEFAULT NULL,
+	`pic` LONGBLOB NULL,
+	`pagenum` INT(11) NULL DEFAULT NULL,
+	`pic_path` VARCHAR(255) NULL DEFAULT NULL,
+	`sun` VARCHAR(255) NULL DEFAULT NULL,
+	PRIMARY KEY (`userid`)
+)
+COLLATE='utf8_general_ci'
+ENGINE=InnoDB
+AUTO_INCREMENT=16
+;
+存储过程
+CREATE DEFINER=`root`@`localhost` PROCEDURE `p_1`(IN `in_zid` int, OUT `out_title` varchar(255)
+
+)
+	LANGUAGE SQL
+	NOT DETERMINISTIC
+	CONTAINS SQL
+	SQL SECURITY DEFINER
+	COMMENT ''
+begin
+  set @title:="";
+  select title into @title  from article where id=in_zid;
+  select * from article where rootid=in_zid;
+  set out_title:=@title;
+
+end
+
+技术 springBoot springMVC Hibernate kafka zookeeper ajax druid_pool
